@@ -264,17 +264,14 @@ class TTT(tk.Tk):
         self.t_debug.delete(1.0,"end")
         
         ###################  Fill Out  #######################
-        '''
-        Check if the selected location is already taken or not
-        '''
-
-        '''
-        Send message to peer
-        '''
-        
-        '''
-        Get ack
-        '''
+        selection = int(d_msg.strip())
+        if self.board[selection] != 0: # 선택된 위치가 점유되었는지 확인
+            return False
+        #상대방에게 메세지를 보냄
+        self.socket.sendto(d_msg.encode(), (self.send_ip, self.port))
+        ack, addr = self.socket.recvfrom(SIZE)
+        if ack.decode() != "ACK": #확인 응답을 받는 코드
+            return False
         
         loc = 5 # peer's move, from 0 to 8
 
