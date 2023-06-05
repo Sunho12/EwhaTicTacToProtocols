@@ -217,10 +217,10 @@ class TTT(tk.Tk):
         ###################  Fill Out  #######################
         msg =  self.socket.recv(1024).decode() # get message using socket
 
-        msg_valid_check = False
+        msg_valid_check = check_msg(msg,self.ip)
          
         
-        if msg_valid_check: # Message is not valid
+        if not msg_valid_check: # Message is not valid
             self.socket.close()   
             self.quit()
             return
@@ -406,3 +406,4 @@ def check_msg(msg, recv_ip):
 
     return True
     ######################################################  
+
