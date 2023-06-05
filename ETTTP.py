@@ -226,7 +226,7 @@ class TTT(tk.Tk):
             return
         else:  # If message is valid - send ack, update board and change turn
 
-            loc = 5 # received next-move
+            loc = int(msg) # received next-move
             
             ack_msg = "ACK"
             self.socket.send(ack_msg.encode())
@@ -273,7 +273,7 @@ class TTT(tk.Tk):
         if ack.decode() != "ACK": #확인 응답을 받는 코드
             return False
         
-        loc = 5 # peer's move, from 0 to 8
+        loc = int(d_msg.decode()) # peer's move, from 0 to 8
 
         ######################################################  
         
@@ -301,7 +301,7 @@ class TTT(tk.Tk):
         if self.board[selection] != 0:
             return False
 
-        msg = f"MOVE:{row},{col}"
+        msg = f"{row},{col}"
 
         self.socket.send(msg.encode())
 
