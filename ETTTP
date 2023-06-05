@@ -317,23 +317,18 @@ class TTT(tk.Tk):
         ######################################################  
 
     
-    def check_result(self, winner, get=False):
-      if not get:
-        # If this user is the winner, report the result first
-        if winner:
-            result = self.user['win']
-        else:
-            result = self.computer['win']
-        self.l_result['text'] = result
+    def check_result(self,winner,get=False):
+        '''
+        Function to check if the result between peers are same
+        get: if it is false, it means this user is winner and need to report the result first
+        '''
+        # no skeleton
+        ###################  Fill Out  #######################
 
-   
-     self.socket.sendto("RESULT".encode(), (self.send_ip, self.port))
-     ack, addr = self.socket.recvfrom(SIZE)
-     if ack.decode() != "ACK":
-        return False
 
-     return True
 
+        return True
+        ######################################################  
 
         
     #vvvvvvvvvvvvvvvvvvv  DO NOT CHANGE  vvvvvvvvvvvvvvvvvvv
@@ -408,4 +403,3 @@ def check_msg(msg, recv_ip):
 
     return True
     ######################################################  
-
