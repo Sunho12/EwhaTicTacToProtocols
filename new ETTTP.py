@@ -89,9 +89,19 @@ def send_move(self,selection):
         ###################  Fill Out  #######################
 
         # send message and check ACK
-        
-        return True
+        msg = f"SEND ETTTP/1.0\r\nHost:{self.send_ip}\r\nNew-Move:({row},{col})\r\n\r\n"
+        self.socket.send(msg.encode())
+
+        ack_msg = self.socket.recv(SIZE).decode()
+
+        if ack_msg == "ACK":
+            return True
+        else:
+            self.socket.close()
+            quit(self)
+
         ######################################################  
+
 
 
 
