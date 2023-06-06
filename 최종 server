@@ -297,7 +297,8 @@ class TTT(tk.Tk):
         if self.board[loc] != 0:
             self.socket.close()
             self.quit()
-        self.socket.sendto(d_msg.encode(),(self.send_ip, self.port))
+        self.socket.send(d_msg.encode())
+
         ack, addr = self.socket.recvfrom(SIZE)
         
         if ack.decode() != "ACK":
@@ -357,7 +358,7 @@ class TTT(tk.Tk):
         else:   #내가 이겼을 때
             self.socket.send(self.encode())
             opponent_result = self.socket.recv(SIZE).decode().strip()
-            if opponent_result == str(winner):
+            if opponent_result == str(winner['Name']):
                 return True
             else:
                 return False
