@@ -8,7 +8,7 @@ def get_move(self):
         ###################  Fill Out  #######################
         msg = self.socket.recv(SIZE).decode() # get message using socket
 
-        ip_address = '127.0.0.1'
+        ip_address = self.recv_ip
         msg_valid_check = check_msg(msg, ip_address)
          
         
