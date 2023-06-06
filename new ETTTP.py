@@ -106,7 +106,7 @@ def send_move(self,selection):
 
 
 
-def check_result(self,winner,get=False):
+ def check_result(self,winner,get=False):
         '''
         Function to check if the result between peers are same
         get: if it is false, it means this user is winner and need to report the result first
@@ -114,10 +114,20 @@ def check_result(self,winner,get=False):
         # no skeleton
         ###################  Fill Out  #######################
 
-        
+        if get:  #내가 졌을 때
+            opponent_result = self.socket.recv(SIZE).decode().strip()
+            if opponent_result == str(self):
+                return True
+            else:
+                return False
+        else:   #내가 이겼을 때
+            self.socket.send(self.encode())
+            opponent_result = self.socket.recv(SIZE).decode().strip()
+            if opponent_result == str(winner):
+                return True
+            else:
+                return False
 
-
-        return True
         ######################################################  
 
 
