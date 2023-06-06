@@ -19,7 +19,7 @@ if __name__ == '__main__':
         #receive ack - if ack is correct, start game
         ack_msg = client_socket.recv(SIZE).decode()
         if ack_msg == "ACK":
-            root = TTT(client=False, src_addr=MY_IP, dst_addr=client_addr[0])
+            root = TTT(client=False, target_socket = client_socket,src_addr=MY_IP, dst_addr=client_addr[0])
             root.play(start_user=start)
             root.mainloop()
             client_socket.close()
