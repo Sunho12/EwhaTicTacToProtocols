@@ -51,19 +51,32 @@ def send_debug(self):
         self.t_debug.delete(1.0,"end")
         
         ###################  Fill Out  #######################
-        '''
-        Check if the selected location is already taken or not
-        '''
+        start_index = d_msg.find("(")
+        end_index = d_msg.find(")")
 
-        '''
-        Send message to peer
-        '''
+        if start_index != -1 and end_index != -1:
+            coordinates = d_msg[start_index+1:end_index]
+            tmp = coordinates
+            n1, n2 = d_msg.strip("()").split(",")
+
+            n1 = int(n1)
+            n2 = int(n2)
+            if n1 == 0:
+                loc = n2
+            elif n1 == 1:
+                loc = 2*n1+n2+1
+            elif n1 == 2:
+                loc = 3*n1+n2
         
-        '''
-        Get ack
-        '''
         
-        loc = 5 # peer's move, from 0 to 8
+        if self.board[loc] == 0:
+            self.socket.close()
+            self.quit()
+        self.socket.sendto(d_msg.encode(),(self.send_ip, self.port))
+        ack, addr = self.socket.recvfrom(SIZE)
+        
+        if ack.decode() != "ACK":
+            return False
 
         ######################################################  
         
